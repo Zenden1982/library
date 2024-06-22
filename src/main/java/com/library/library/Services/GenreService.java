@@ -9,6 +9,14 @@ import jakarta.transaction.Transactional;
 
 import java.util.*;
 
+import com.library.library.Classes.DTO.GenreDTO;
+import com.library.library.Repositories.GenreRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class GenreService {
 
@@ -16,8 +24,8 @@ public class GenreService {
     private GenreRepository genreRepository;
 
     @Transactional
-    public List<Genre> getGenres() {
-        return genreRepository.findAll();
+    public List<GenreDTO> getGenres() {
+        return genreRepository.findAll().stream().map(GenreDTO::convertToDTO).collect(Collectors.toList());
     }
 
     @Transactional
@@ -31,7 +39,7 @@ public class GenreService {
     }
 
     @Transactional
-    public Genre getGenreById(int id) {
-        return genreRepository.findById(id).get();
+    public GenreDTO getGenreById(int id) {
+        return GenreDTO.convertToDTO(genreRepository.findById(id).get());
     }
 }

@@ -27,6 +27,10 @@ public class Author {
     private Date birthDate;
 
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Book> books = new ArrayList<>();
+    private List<Book> books;
+
+    Author() {
+        this.books = new ArrayList<>();
+    }
 
 }

@@ -3,6 +3,7 @@ package com.library.library.Services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.library.library.Classes.Author;
+import com.library.library.Classes.DTO.AuthorDTO;
 import com.library.library.Repositories.AuthorRepository;
 import java.util.*;
 
@@ -20,8 +21,8 @@ public class AuthorService {
     }
 
     @Transactional
-    public List<Author> getAuthors() {
-        return authorRepository.findAll();
+    public List<AuthorDTO> getAuthors() {
+        return authorRepository.findAll().stream().map(AuthorDTO::convertToDTO).toList();
     }
 
     @Transactional
@@ -30,7 +31,7 @@ public class AuthorService {
     }
 
     @Transactional
-    public Author getAuthorById(int id) {
-        return authorRepository.findById(id).get();
+    public AuthorDTO getAuthorById(int id) {
+        return AuthorDTO.convertToDTO(authorRepository.findById(id).get());
     }
 }

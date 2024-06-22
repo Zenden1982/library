@@ -9,14 +9,18 @@ import com.library.library.Repositories.BookRepository;
 import jakarta.transaction.Transactional;
 
 import java.util.*;
+import com.library.library.Classes.DTO.BookDTO;
+import com.library.library.Classes.DTO.AuthorDTO;
+import com.library.library.Classes.DTO.GenreDTO;
+
 @Service
 public class BookService {
     
     @Autowired
     private BookRepository bookRepository;
 
-    public List<Book> getBooks() {
-        return bookRepository.findAll();
+    public List<BookDTO> getBooks() {
+        return bookRepository.findAll().stream().map(BookDTO::convertToDTO).toList();
     }
 
     @Transactional
@@ -30,8 +34,8 @@ public class BookService {
     }
 
     @Transactional
-    public Book getBookById(int id) {
-        return bookRepository.findById(id).get();
+    public BookDTO getBookById(int id) {
+        return BookDTO.convertToDTO(bookRepository.findById(id).get());
     }
 
     @Transactional
@@ -40,8 +44,8 @@ public class BookService {
     }
 
     @Transactional
-    public List<Book> getBooksByAuthor(String author) {
-        return bookRepository.findByAuthorName(author);
+    public List<BookDTO> getBooksByAuthor(String author) {
+        return bookRepository.findByAuthorName(author).stream().map(BookDTO::convertToDTO).toList();
     }
 
 }
