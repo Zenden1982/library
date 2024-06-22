@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
+@Entity
+@Table(name = "book")
 public class Book {
     
     @Id
@@ -15,12 +17,18 @@ public class Book {
     @Column(name = "title" , nullable = false, length = 50)
     private String title;
 
-    @Column(name = "author" , nullable = false, length = 50)
-    private String author;
+    @ManyToOne
+    @JoinColumn(name = "author_id")
+    private Author author;
 
     @Column(name = "publish_date" , nullable = false)
     private Date publishDate;
 
     @Column(name = "isbn" , nullable = false, length = 50)
     private String isbn;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "genre_id")
+    private Genre genre;
+
 }
