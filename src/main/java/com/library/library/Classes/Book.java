@@ -4,10 +4,12 @@ import java.util.Date;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.ToString;
 
 @Data
 @Entity
 @Table(name = "book")
+@ToString(exclude = {"author", "genre"})
 public class Book {
     
     @Id

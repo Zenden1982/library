@@ -60,9 +60,32 @@
     <type>pom</type>
 </dependency>
 
+<!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui -->
+<dependency>
+    <groupId>org.springdoc</groupId>
+    <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+    <version>2.5.0</version>
+</dependency>
+<!-- https://mvnrepository.com/artifact/io.springfox/springfox-boot-starter -->
+<!-- <dependency>
+    <groupId>io.springfox</groupId>
+    <artifactId>springfox-boot-starter</artifactId>
+    <version>3.0.0</version>
+</dependency> -->
+
+
 <dependency>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-data-jpa</artifactId>
+</dependency>
+
+<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-log4j12 -->
+<dependency>
+    <groupId>org.slf4j</groupId>
+    <artifactId>slf4j-log4j12</artifactId>
+    <version>2.1.0-alpha1</version>
+    <type>pom</type>
+    <scope>test</scope>
 </dependency>
 
 		<dependency>
@@ -76,6 +99,7 @@
     <artifactId>postgresql</artifactId>
     <version>42.7.3</version>
 </dependency>
+
 
 
 	</dependencies>

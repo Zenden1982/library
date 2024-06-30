@@ -1,0 +1,11 @@
+# GET-запрос для получения книг по автору
+http://localhost:8080/library/books/author?name=Bogdan###
+
+# POST-запрос для добавления новой книги
+POST http://localhost:8080/books
+Content-Type: application/json
+
+{
+    "title": "New Book",
+    "author": "John Doe"
+}
