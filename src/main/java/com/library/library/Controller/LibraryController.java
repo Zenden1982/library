@@ -3,6 +3,9 @@ package com.library.library.Controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,8 +19,12 @@ import com.library.library.Classes.Book;
 import com.library.library.Classes.Genre;
 import com.library.library.Classes.DTO.AuthorDTO;
 import com.library.library.Classes.DTO.BookDTO;
+import com.library.library.Classes.DTO.BookFilter;
 import com.library.library.Classes.DTO.GenreDTO;
+import com.library.library.Classes.DTO.PageResponse;
+import com.library.library.Repositories.FilterBookRepository;
 import com.library.library.Services.AuthorService;
+import com.library.library.Services.BookFilterService;
 import com.library.library.Services.BookService;
 import com.library.library.Services.GenreService;
 
@@ -36,10 +43,25 @@ public class LibraryController {
     BookService bookService;
 
     @Autowired
+    BookFilterService bookFilterService;
+
+    @Autowired
+    FilterBookRepository filterBookRepository;
+
+    @Autowired
     AuthorService authorService;
 
     @Autowired
     GenreService genreService;
+
+    @PostMapping("/book/filter")
+    @Operation(summary = "Фильтрация книг", description = "Фильтрация книг по названию, автору и жанру")
+    @ApiResponse(responseCode = "200", description = "Книги успешно отфильтрованы")
+    public PageResponse<BookDTO> filterBooks(@RequestParam(defaultValue = "1") int page, @RequestParam (defaultValue = "3") int size, @RequestBody BookFilter filter) {
+        log.info("filterBooks: " + filter);
+        Pageable pageable = PageRequest.of(page, size);
+        return PageResponse.of((Page<BookDTO>) filterBookRepository.findAllbyFilter(filter, pageable));
+    }
 
     @PostMapping("/books/add")
     @Operation(summary = "Добавить новую книгу", description = "Добавление новой книги в библиотеку")
